@@ -26,8 +26,8 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "change-this-secret-key-in-production")
 app.config["MAX_CONTENT_LENGTH"] = 12 * 1024 * 1024
 
-ADMIN_USER = os.environ.get("ADMIN_USER", "1389")
-ADMIN_PASS = os.environ.get("ADMIN_PASS", "184224")
+ADMIN_USER = os.environ.get("ADMIN_USER", "1482")
+ADMIN_PASS = os.environ.get("ADMIN_PASS", "1482111482")
 
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp", "gif"}
 
