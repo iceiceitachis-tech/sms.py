@@ -1,4 +1,5 @@
 import os
+import psycopg2
 import sqlite3
 import secrets
 from functools import wraps
@@ -10,6 +11,18 @@ from flask import (
 )
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+def get_db():
+    # ดึงค่า DATABASE_URL จาก Render มาใช้ (ถ้าไม่มี จะไปรันไฟล์ local.db แทน)
+    database_url = os.environ.get("DATABASE_URL")
+    
+    if database_url:
+        # เชื่อมต่อกับ Supabase (PostgreSQL) บนคลาวด์
+        conn = psycopg2.connect(database_url)
+    else:
+        # กรณีรันเทสในเครื่อง (ถ้ามีใช้ SQLite เดิม)
+        import sqlite3
+        conn = sqlite3.connect("sangha_database.db")
+    return conn
 
 # ============================================================
 # พระสงฆ์สมไอซ์ — ระบบกฎหมายคณะสงฆ์และงานบริหาร
