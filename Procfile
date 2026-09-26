@@ -1,1 +1,1 @@
-web: gunicorn somice_sangha_full:app
+web: gunicorn somice_sangha :app
