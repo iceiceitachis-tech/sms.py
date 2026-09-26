@@ -1,17 +1,19 @@
 import os
 import psycopg2
-import sqlite3
-import secrets
 import psycopg2.extras
-from functools import wraps
+import sqlite3
 from pathlib import Path
 from datetime import datetime
-from flask import (
-    Flask, request, redirect, url_for, session, render_template_string,
-    flash, send_from_directory, abort
-)
-from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.utils import secure_filename
+from flask import Flask, request, redirect, url_for, session, render_template_string, flash, send_from_directory, abort
+
+# กำหนด Path ต่างๆ ไว้ข้างบนสุดก่อนใช้งาน
+BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = BASE_DIR / "data"
+UPLOAD_DIR = DATA_DIR / "uploads"
+DB_PATH = DATA_DIR / "somice_sangha.db"
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+# ค่อยสร้างฟังก์ชัน db() ไว้ทีหลัง เพื่อให้รู้จัก DB_PATH แล้ว
 def db():
     database_url = os.environ.get("DATABASE_URL")
     if database_url:
